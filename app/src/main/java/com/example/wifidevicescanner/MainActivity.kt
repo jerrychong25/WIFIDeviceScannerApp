@@ -29,8 +29,7 @@ class MainActivity: AppCompatActivity() {
         btnScan = findViewById(R.id.scan) as Button
         listViewIp = findViewById(R.id.listviewip) as ListView
         ipList = ArrayList()
-        adapter = ArrayAdapter<String>(this,
-            android.R.layout.simple_list_item_1, android.R.id.text1, ipList)
+        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, ipList)
         listViewIp!!.setAdapter(adapter)
 
         btnScan!!.setOnClickListener(object:View.OnClickListener {
@@ -49,7 +48,7 @@ class MainActivity: AppCompatActivity() {
         internal val subnet = "192.168.1."
         internal val lower = 100
         internal val upper = 255
-        internal val timeout = 3000
+        internal val timeout = 1000
 
         override fun onPreExecute() {
 
@@ -66,23 +65,23 @@ class MainActivity: AppCompatActivity() {
 
             for (i in lower..upper)
             {
-                val host = subnet + i
+                val hostIP = subnet + i
 
-                Log.d("MainActivity", "doInBackground() host: " + host)
+                Log.d("MainActivity", "doInBackground() host: " + hostIP)
 
                 try
                 {
-                    val inetAddress = InetAddress.getByName(host)
+                    val inetAddress = InetAddress.getByName(hostIP)
 
                     Log.d("MainActivity", "doInBackground() inetAddress: " + inetAddress)
 
                     if (inetAddress.isReachable(timeout))
                     {
-                        Log.d("MainActivity", "doInBackground() inetAddress Reachable")
-                        publishProgress(inetAddress.toString())
+                        Log.d("MainActivity", "doInBackground() inetAddress " + inetAddress + " Reachable!")
+                        publishProgress(inetAddress.canonicalHostName + "\n" + inetAddress.getAddress())
                     }
 
-                    Log.d("MainActivity", "doInBackground() inetAddress Finished")
+                    Log.d("MainActivity", "doInBackground() inetAddress Finished!")
                 }
                 catch (e:UnknownHostException) {
                     e.printStackTrace()
