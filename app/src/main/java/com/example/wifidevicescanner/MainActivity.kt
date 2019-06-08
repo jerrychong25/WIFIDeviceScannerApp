@@ -181,12 +181,9 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.*
-import java.util.HashMap
-
 
 class MainActivity : AppCompatActivity() {
 
-//    private var mHello: TextView? = null
     private var btnScan: Button? = null
     private var listViewIp: ListView? = null
     internal var ipList: ArrayList<String>? = null
@@ -194,8 +191,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_ip)
-//        mHello = findViewById(R.id.hello) as TextView
+        setContentView(R.layout.activity_main)
 
         btnScan = findViewById(R.id.btn_scan) as Button
         listViewIp = findViewById(R.id.lv_deviceip) as ListView
@@ -230,8 +226,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MainActivity", "scanSuccess()")
 
                 dialog.dismiss()
-//                mHello!!.text = resultMap.toString()
-//                Log.d("MainActivity", "scan resultMap: " + resultMap.toString())
             }
         })
 
@@ -291,18 +285,14 @@ class MainActivity : AppCompatActivity() {
          * 获取局域网中的 存在的ip地址及对应的mac
          */
         fun startScan() {
-            //局域网内存在的ip集合
-//            val ipList = java.util.ArrayList<String>()
-            val map = HashMap<String, String>()
-
             mHandler.post { listener!!.scanClear() }
 
             //获取本机所在的局域网地址
             val hostIP = hostIP
             val lastIndexOf = hostIP!!.lastIndexOf(".")
             val substring = hostIP.substring(0, lastIndexOf + 1)
+
             //创建线程池
-            //        final ExecutorService fixedThreadPool = Executors.newFixedThreadPool(20);
             Thread(Runnable {
                 val dp = DatagramPacket(ByteArray(0), 0, 0)
                 var socket: DatagramSocket
@@ -338,31 +328,26 @@ class MainActivity : AppCompatActivity() {
         private fun execCatForArp() {
             Thread(Runnable {
                 try {
-                    val map = HashMap<String, String>()
                     val exec = Runtime.getRuntime().exec("cat proc/net/arp")
                     val `is` = exec.inputStream
                     val reader = BufferedReader(InputStreamReader(`is`))
                     var line: String
-//                while ((line = reader.readLine()) != null) {
+
                     while (reader.readLine() != null) {
                         line = reader.readLine()
                         Log.d("MainActivity", "run: $line")
+
                         if (!line.contains("00:00:00:00:00:00") && !line.contains("IP")) {
                             val split = line.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                            Log.d("MainActivity", "split: $split")
-                            Log.d("MainActivity", "split[0]: " + split[0])
-                            Log.d("MainActivity", "split[3]: " + split[3])
+//                            Log.d("MainActivity", "split: $split")
+//                            Log.d("MainActivity", "split[0]: " + split[0])
+//                            Log.d("MainActivity", "split[3]: " + split[3])
+                            Log.d("MainActivity", "Device IP: " + split[0] + ", " + "MAC Address: " + split[3])
 
-                            map[split[3]] = split[0]
-                            Log.d("MainActivity", "map: $map")
-
-                            // Add New IP To Adapter
-
-
+                            // Add New Device To Adapter
                             mHandler.post { listener!!.addDevice(split[0] + "\n" + split[3]) }
                         }
                     }
-//                    mHandler.post { listener!!.scan(map) }
                     mHandler.post { listener!!.scanSuccess() }
 
                 } catch (e: IOException) {
