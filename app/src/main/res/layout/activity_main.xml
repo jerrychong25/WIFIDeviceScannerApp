@@ -8,14 +8,19 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
+    <ListView
+            android:id="@+id/lv_deviceip"
+            android:layout_width="match_parent"
+            android:layout_height="312dp"
+            android:layout_weight="0.97"/>
+
     <Button
-            android:id="@+id/scan"
+            android:id="@+id/btn_scan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="15dp"
+            android:background="@android:color/holo_blue_light"
             android:text="Scan"/>
 
-    <ListView
-            android:id="@+id/listviewip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 </LinearLayout>

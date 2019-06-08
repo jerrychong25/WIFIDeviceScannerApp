@@ -26,8 +26,8 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnScan = findViewById(R.id.scan) as Button
-        listViewIp = findViewById(R.id.listviewip) as ListView
+        btnScan = findViewById(R.id.btn_scan) as Button
+        listViewIp = findViewById(R.id.lv_deviceip) as ListView
         ipList = ArrayList()
         adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, ipList)
         listViewIp!!.setAdapter(adapter)
@@ -45,10 +45,10 @@ class MainActivity: AppCompatActivity() {
             Scan IP 192.168.1.100~192.168.1.255
             you should try different timeout for your network/devices
        */
-        internal val subnet = "192.168.1."
-        internal val lower = 100
+        internal val subnet = "192.168.0."
+        internal val lower = 1
         internal val upper = 255
-        internal val timeout = 1000
+        internal val timeout = 200
 
         override fun onPreExecute() {
 
