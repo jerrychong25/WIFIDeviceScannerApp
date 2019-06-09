@@ -14,6 +14,7 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.*
+import com.example.wifidevicescanner.MACAddress
 
 class MainActivity : AppCompatActivity() {
 
@@ -165,6 +166,8 @@ class MainActivity : AppCompatActivity() {
                     val `is` = exec.inputStream
                     val reader = BufferedReader(InputStreamReader(`is`))
                     var line: String
+                    val macAddress = MACAddress()
+                    var deviceManufacturer: String? = null
 
                     while (reader.readLine() != null) {
                         line = reader.readLine()
@@ -175,10 +178,11 @@ class MainActivity : AppCompatActivity() {
 //                            Log.d("MainActivity", "split: $split")
 //                            Log.d("MainActivity", "split[0]: " + split[0])
 //                            Log.d("MainActivity", "split[3]: " + split[3])
-                            Log.d("MainActivity", "Device IP: " + split[0] + ", " + "MAC Address: " + split[3])
+                            deviceManufacturer = macAddress.getDeviceInfo(split[3])
+                            Log.d("MainActivity", "Device IP: " + split[0] + ", " + "MAC Address: " + split[3] + ", " + "Device Manufacturer: $deviceManufacturer" )
 
                             // Add New Device To Adapter
-                            mHandler.post { listener!!.addDevice(split[0] + "\n" + split[3]) }
+                            mHandler.post { listener!!.addDevice(split[0] + "\n" + split[3] + "\n" + deviceManufacturer) }
                         }
                     }
                     mHandler.post { listener!!.scanSuccess() }
@@ -200,6 +204,5 @@ class MainActivity : AppCompatActivity() {
 
             fun scanSuccess()
         }
-
     }
 }
