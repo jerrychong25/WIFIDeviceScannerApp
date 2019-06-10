@@ -180,8 +180,12 @@ class MainActivity : AppCompatActivity() {
                             deviceManufacturer = macAddress.getDeviceInfo(split[3])
                             Log.d("MainActivity", "Device IP: " + split[0] + ", " + "MAC Address: " + split[3] + ", " + "Device Manufacturer: $deviceManufacturer" )
 
-                            // Add New Device To Adapter
-                            mHandler.post { listener!!.addDevice(split[0] + "\n" + deviceManufacturer + "\n" + split[3]) }
+                            if(deviceManufacturer.equals("Apple MacBook Pro 2015")) {
+                                Log.d("MainActivity", "Apple MacBook Pro 2015 Detected!")
+
+                                // Add New Device To Adapter
+                                mHandler.post { listener!!.addDevice(split[0] + "\n" + "Apple MacBook Pro 2015" + "\n" + split[3]) }
+                            }
                         }
                     }
                     mHandler.post { listener!!.scanSuccess() }
