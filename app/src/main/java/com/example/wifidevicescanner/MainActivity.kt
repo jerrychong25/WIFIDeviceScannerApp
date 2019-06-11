@@ -180,11 +180,20 @@ class MainActivity : AppCompatActivity() {
                             deviceManufacturer = macAddress.getDeviceInfo(split[3])
                             Log.d("MainActivity", "Device IP: " + split[0] + ", " + "MAC Address: " + split[3] + ", " + "Device Manufacturer: $deviceManufacturer" )
 
-                            if(deviceManufacturer.equals("Apple MacBook Pro 2015")) {
-                                Log.d("MainActivity", "Apple MacBook Pro 2015 Detected!")
-
+                            if(deviceManufacturer.equals("Broadlink")) {
+                                Log.d("MainActivity", "Broadlink Detected!")
                                 // Add New Device To Adapter
-                                mHandler.post { listener!!.addDevice(split[0] + "\n" + "Apple MacBook Pro 2015" + "\n" + split[3]) }
+                                mHandler.post { listener!!.addDevice(split[0] + "\n" + "Broadlink" + "\n" + split[3]) }
+                            }
+                            else if(deviceManufacturer.equals("Espressif")) {
+                                Log.d("MainActivity", "Espressif Detected!")
+                                // Add New Device To Adapter
+                                mHandler.post { listener!!.addDevice(split[0] + "\n" + "Espressif" + "\n" + split[3]) }
+                            }
+                            else if(deviceManufacturer.equals("Raspberry Pi")) {
+                                Log.d("MainActivity", "Raspberry Pi Detected!")
+                                // Add New Device To Adapter
+                                mHandler.post { listener!!.addDevice(split[0] + "\n" + "Raspberry Pi" + "\n" + split[3]) }
                             }
                         }
                     }
