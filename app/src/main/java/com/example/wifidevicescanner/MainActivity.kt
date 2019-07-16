@@ -195,6 +195,11 @@ class MainActivity : AppCompatActivity() {
                                 // Add New Device To Adapter
                                 mHandler.post { listener!!.addDevice(split[0] + "\n" + "Raspberry Pi" + "\n" + split[3]) }
                             }
+                            else if(deviceManufacturer.equals("Amazon Echo Dot")) {
+                                Log.d("MainActivity", "Amazon Echo Dot Detected!")
+                                // Add New Device To Adapter
+                                mHandler.post { listener!!.addDevice(split[0] + "\n" + "Amazon Echo Dot" + "\n" + split[3]) }
+                            }
                         }
                     }
                     mHandler.post { listener!!.scanSuccess() }

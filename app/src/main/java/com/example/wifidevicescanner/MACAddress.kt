@@ -25,6 +25,7 @@ class MACAddress {
             "C0:98:79" -> deviceManufacturer = "Acer"
             "18:82:19" -> deviceManufacturer = "Alibaba Cloud"
             "D8:96:E0" -> deviceManufacturer = "Alibaba Cloud"
+            "18:74:2E" -> deviceManufacturer = "Amazon Echo Dot"
             "00:03:93" -> deviceManufacturer = "Apple"
             "F4:5C:89" -> deviceManufacturer = "Apple MacBook Pro 2015"
             "FC:FC:48" -> deviceManufacturer = "Apple"
